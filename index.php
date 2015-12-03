@@ -1,24 +1,14 @@
-<?php include_once ("template/global.php"); ?>
 <?php
-    if(
-        isset($_POST['email']) and
-        isset($_POST['senha'])
-    ){
-        $erro = login();
+    include_once ("global/header.php");
+    include_once ("global/global.php"); 
+    include_once ("global/usuario.php");
+    
+    if(estaLogado()){
+        header("Location: /cadastro_produtos.php");
     }
-?>
-
-<?php include_once ("template/header.php"); ?>
-
-<?php if(isset($erro)){ ?>
-
-    <div data-alert class="alert-box alert">
-        <?= $erro ?>
-        <a href="#" class="close">&times;</a>
-    </div>
-
-<?php } ?>
-
+    login();
+   
+ ?>
 
 <form method="post">
     <div class="row login">
@@ -45,4 +35,4 @@
             <input type="submit" Value="Cadastrar-se" class="button tiny botao" />
         </div>
 </form>
-<?php include_once ("template/footer.php"); ?>
+<?php include_once ("global/footer.php"); ?>
