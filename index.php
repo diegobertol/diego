@@ -6,9 +6,16 @@
     if(estaLogado()){
         header("Location: /cadastro_produtos.php");
     }
-    login();
+    $erro = login();
    
  ?>
+
+<?php if(isset($erro)){ ?>
+<div data-alert class="alert-box alert">
+ <?= (isset($erro)? $erro : "") ?>
+ <a href="#" class="close">&times;</a>
+</div>
+<?php } ?>
 
 <form method="post">
     <div class="row login">

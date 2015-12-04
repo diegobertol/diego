@@ -34,7 +34,7 @@ function cadastrou($nome, $email, $senha){
         $_SESSION ['login'] = $prepare->fetch(PDO::FETCH_ASSOC);
         header("Location: cadastro_produtos.php");
     }else {
-        $erro = "Deu errado!";
+        return "Deu errado!";
     }
     }
     }

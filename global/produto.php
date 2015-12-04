@@ -55,6 +55,53 @@ function ver(){
         <?php
         }
     }
+function procurar(){
+    if(
+       isset($_POST['nome']) or
+       isset($_POST['valor'])   
+              
+      ){
+        $nome = (isset($_POST['nome'])? $_POST['nome'] : "");
+        $valor = (isset($_POST['valor'])? $_POST['valor'] : "");
+    
+    $sql = "SELECT * FROM `cadastro` WHERE nome=:nome or valor=:valor;";
+    $prepare = conexao()->prepare($sql);
+    $prepare->bindValue(":nome", $nome);
+    $prepare->bindValue(":valor", $valor);
+    $prepare->execute();
+    while ($linha = $prepare->fetch(PDO::FETCH_ASSOC)){
+        ?>
+    <table id="center">
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Valor</td>
+                <td>Quantidade</td>
+                <td>Data de Validade</td>
+            </tr>
+            <tr>
+                <td><?php echo $linha["idcadastro"]; ?></td>
+                <td><?php echo $linha["nome"]; ?></td>
+                <td><?php echo $linha["valor"]; ?></td>
+                <td><?php echo $linha["qtd"]; ?></td>
+                <td><?php echo $linha["validade"]; ?></td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="tiny button botao" value="excluir" />
+                        <input type="hidden" name="id" value="<?php echo $linha["idcadastro"]; ?>" />
+                    </form>
+                </td>
+                <td>
+                    <form action="editar.php" method="GET">
+                        <input type="submit" class="tiny button botao" value="editar" />
+                        <input type="hidden" name="editar" value="<?php echo $linha["idcadastro"]; ?>" />
+                    </form>
+                </td>
+            </tr>
+    </table>
+        <?php
+        }}
+    }
     function delete($id) {
         $sql= "DELETE FROM `cadastro` WHERE idcadastro=:id;";
         $prepare = conexao()->prepare($sql);
